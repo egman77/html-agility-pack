@@ -21,6 +21,9 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             //   _contentDirectory = Path.Combine(@"C:\Users\Jonathan\Desktop\Z\zzzproject\HtmlAgilityPack\HtmlAgilityPack.Tests\bin\Debug\files\");
         }
 
+        /// <summary>
+        /// 保持空属性
+        /// </summary>
         [Test]
         public void PreserveEmptyAttributesTest()
         {
@@ -72,6 +75,9 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             Assert.AreEqual(d.DocumentNode.OuterHtml, html);
         }
 
+        /// <summary>
+        /// 保持原始包装
+        /// </summary>
         [Test]
         public void PreserveOriginalCasingTest()
         {
@@ -121,7 +127,9 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             Assert.AreEqual(d.DocumentNode.OuterHtml, html);
         }
 
-
+        /// <summary>
+        /// 保持原始引用
+        /// </summary>
         [Test]
         public void PreserveOriginalQuoteTest()
         {
@@ -154,6 +162,9 @@ namespace HtmlAgilityPack.Tests.fx._4._5
         }
 
 
+        /// <summary>
+        /// 保持已克隆的空属性值
+        /// </summary>
         [Test]
         public void PreserveClonedEmptyAttributesTest()
         {
