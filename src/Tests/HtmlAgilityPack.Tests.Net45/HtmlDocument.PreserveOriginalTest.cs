@@ -28,7 +28,7 @@ namespace HtmlAgilityPack.Tests.fx._4._5
         public void PreserveEmptyAttributesTest()
         {
             var d = new HtmlDocument();
-            d.OptionEmptyCollection = true;
+            d.OptionEmptyCollection = true; //返回空集合
 
             d.GlobalAttributeValueQuote = AttributeValueQuote.Initial;
 

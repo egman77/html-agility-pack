@@ -3,7 +3,7 @@
 // Forum & Issues: https://github.com/zzzprojects/html-agility-pack
 // License: https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE
 // More projects: http://www.zzzprojects.com/
-// Copyright © ZZZ Projects Inc. 2014 - 2017. All rights reserved.
+// Copyright ?ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
 #region
 
@@ -333,16 +333,19 @@ namespace HtmlAgilityPack
     {
         /// <summary>
         /// A single quote mark '
+        /// µ¥ÒýºÅ
         /// </summary>
         SingleQuote,
 
         /// <summary>
         /// A double quote mark "
+        /// Ë«ÒýºÅ
         /// </summary>
         DoubleQuote,
 
         /// <summary>
         /// No quote mark
+        /// ÎÞÒýºÅ
         /// </summary>
         None,
 

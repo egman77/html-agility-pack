@@ -116,6 +116,8 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Defines if SelectNodes method will return null or empty collection when no node matched the XPath expression.
         /// Setting this to true will return empty collection and false will return null. Default is false.
+        /// 定义当没有节点匹配XPath表达式时，SelectNodes方法是否返回空或空集合。
+        /// 将此设置为true将返回空集合，false将返回空集合。默认是假的。
         /// </summary>
         public bool OptionEmptyCollection = false;
 
