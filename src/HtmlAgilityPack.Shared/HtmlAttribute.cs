@@ -18,6 +18,7 @@ namespace HtmlAgilityPack
 {
     /// <summary>
     /// Represents an HTML attribute.
+    /// 表示一个HTML属性
     /// </summary>
     [DebuggerDisplay("Name: {OriginalName}, Value: {Value}")]
     public class HtmlAttribute : IComparable
@@ -55,6 +56,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the line number of this attribute in the document.
+        /// 获取文档中此属性的行号。
         /// </summary>
         public int Line
         {
@@ -64,6 +66,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the column number of this attribute in the document.
+        /// 获取文档中此属性的列号。
         /// </summary>
         public int LinePosition
         {
@@ -72,6 +75,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the stream position of the value of this attribute in the document, relative to the start of the document.
+        /// 获取此属性值在文档中的相对于文档开头的流位置。
         /// </summary>
         public int ValueStartIndex
         {
@@ -80,14 +84,21 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the length of the value.
+        /// 获取值的长度
         /// </summary>
         public int ValueLength
         {
             get { return _valuelength; }
         }
 
-        /// <summary>Gets or sets a value indicating whether the attribute should use the original name.</summary>
-        /// <value>True if the attribute should use the original name, false if not.</value>
+        /// <summary>
+        /// Gets or sets a value indicating whether the attribute should use the original name.
+        /// 获取或设置一个值，该值指示属性是否应使用原始名称。
+        /// </summary>
+        /// <value>
+        /// True if the attribute should use the original name, false if not.
+        /// 如果属性应该使用原始名称则为True，否则为false。
+        /// </value>
         public bool UseOriginalName
         {
             get
@@ -112,6 +123,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the qualified name of the attribute.
+        /// 获取属性的限定名。
         /// </summary>
         public string Name
         {
@@ -141,6 +153,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Name of attribute with original case
+        /// 属性名与原始情况
         /// </summary>
         public string OriginalName
         {
@@ -149,6 +162,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the HTML document to which this attribute belongs.
+        /// 获取此属性所属的HTML文档。
         /// </summary>
         public HtmlDocument OwnerDocument
         {
@@ -157,6 +171,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the HTML node to which this attribute belongs.
+        /// 获取此属性所属的HTML节点。
         /// </summary>
         public HtmlNode OwnerNode
         {
@@ -165,6 +180,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Specifies what type of quote the data should be wrapped in
+        /// 指定应该将数据封装在哪种类型的引号中
         /// </summary>
         public AttributeValueQuote QuoteType
         {
@@ -174,11 +190,13 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Specifies what type of quote the data should be wrapped in (internal to keep backward compatibility)
+        /// 指定数据应该被包装在什么类型的引号中(内部以保持向后兼容性)
         /// </summary>
         internal AttributeValueQuote InternalQuoteType { get; set; }
 
         /// <summary>
         /// Gets the stream position of this attribute in the document, relative to the start of the document.
+        /// 获取此属性在文档中相对于文档开头的流位置。
         /// </summary>
         public int StreamPosition
         {
@@ -187,12 +205,14 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets or sets the value of the attribute.
+        /// 获取或设置属性的值。
         /// </summary>
         public string Value
         {
             get
             {
                 // A null value has been provided, the attribute should be considered as "hidden"
+                //如果提供了空值，属性应该被认为是“隐藏的”
                 if (_value == null && _ownerdocument.Text == null && _valuestartindex == 0 && _valuelength == 0)
                 {
                     return null;
@@ -223,6 +243,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the DeEntitized value of the attribute.
+        /// 获取属性的反实体化值。
         /// </summary>
         public string DeEntitizeValue
         {
@@ -241,6 +262,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets a valid XPath string that points to this Attribute
+        /// 获取指向此属性的有效XPath字符串
         /// </summary>
         public string XPath
         {
@@ -257,9 +279,13 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Compares the current instance with another attribute. Comparison is based on attributes' name.
+        /// 比较当前实例与另一个属性。比较基于属性的名称。
         /// </summary>
         /// <param name="obj">An attribute to compare with this instance.</param>
-        /// <returns>A 32-bit signed integer that indicates the relative order of the names comparison.</returns>
+        /// <returns>
+        /// A 32-bit signed integer that indicates the relative order of the names comparison.
+        /// 32位有符号整数，表示名称比较的相对顺序。
+        /// </returns>
         public int CompareTo(object obj)
         {
             HtmlAttribute att = obj as HtmlAttribute;
@@ -277,6 +303,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates a duplicate of this attribute.
+        /// 创建此属性的副本。
         /// </summary>
         /// <returns>The cloned attribute.</returns>
         public HtmlAttribute Clone()
@@ -294,6 +321,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Removes this attribute from it's parents collection
+        /// 从其父集合中移除此属性
         /// </summary>
         public void Remove()
         {
@@ -328,6 +356,7 @@ namespace HtmlAgilityPack
 
     /// <summary>
     /// An Enum representing different types of Quotes used for surrounding attribute values
+    /// 一个Enum，表示用于包围属性值的不同类型的引号
     /// </summary>
     public enum AttributeValueQuote
     {
@@ -349,12 +378,16 @@ namespace HtmlAgilityPack
         /// </summary>
         None,
 
-
-        /// <summary>Without the value such as '&lt;span readonly&gt;'</summary>
+        
+        /// <summary>
+        /// Without the value such as '&lt;span readonly&gt;'
+        /// 单值
+        /// </summary>
         WithoutValue,
 
         /// <summary>
         /// The initial value (current value)
+        /// 初始值
         /// </summary>
         Initial
     }
