@@ -26,6 +26,10 @@ namespace HtmlAgilityPack.Tests
             //   _contentDirectory = Path.Combine(@"C:\Users\Jonathan\Desktop\Z\zzzproject\HtmlAgilityPack\HtmlAgilityPack.Tests\bin\Debug\files\");
         }
 
+        /// <summary>
+        /// 取微软主页
+        /// </summary>
+        /// <returns></returns>
         private HtmlDocument GetMshomeDocument()
         {
             var doc = new HtmlDocument();

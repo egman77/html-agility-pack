@@ -60,6 +60,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Defines the max level we would go deep into the html document
+        /// 定义了我们将深入html文档的最大级别
         /// </summary>
         private static int _maxDepthLevel = int.MaxValue;
 
@@ -86,30 +87,41 @@ namespace HtmlAgilityPack
         private Encoding _streamencoding;
         private bool _useHtmlEncodingForStream;
 
-        /// <summary>The HtmlDocument Text. Careful if you modify it.</summary>
+        /// <summary>
+        /// The HtmlDocument Text. Careful if you modify it.
+        /// HtmlDocument文本。修改时要小心。
+        /// </summary>
         public string Text;
 
-        /// <summary>True to stay backward compatible with previous version of HAP. This option does not guarantee 100% compatibility.</summary>
+        /// <summary>
+        /// True to stay backward compatible with previous version of HAP. This option does not guarantee 100% compatibility.
+        /// True，以保持与HAP以前版本的向后兼容。这个选项不能保证100%的兼容性。
+        /// </summary>
         public bool BackwardCompatibility = true;
 
         /// <summary>
         /// Adds Debugging attributes to node. Default is false.
+        /// 向节点添加调试属性。默认是假的。
         /// </summary>
         public bool OptionAddDebuggingAttributes;
 
         /// <summary>
         /// Defines if closing for non closed nodes must be done at the end or directly in the document.
         /// Setting this to true can actually change how browsers render the page. Default is false.
+        /// 定义非关闭节点的关闭是必须在文档的最后完成还是直接在文档中完成。
+        /// 设置为true实际上可以改变浏览器呈现页面的方式。默认是假的。
         /// </summary>
-        public bool OptionAutoCloseOnEnd; // close errors at the end
+        public bool OptionAutoCloseOnEnd; // close errors at the end 在最后关闭错误
 
         /// <summary>
         /// Defines if non closed nodes will be checked at the end of parsing. Default is true.
+        /// 定义在解析结束时是否检查非关闭节点。默认是正确的。
         /// </summary>
         public bool OptionCheckSyntax = true;
 
         /// <summary>
         /// Defines if a checksum must be computed for the document while parsing. Default is false.
+        /// 定义在解析结束时是否检查非关闭节点。 默认是正确的。
         /// </summary>
         public bool OptionComputeChecksum;
 
@@ -121,17 +133,22 @@ namespace HtmlAgilityPack
         /// </summary>
         public bool OptionEmptyCollection = false;
 
-        /// <summary>True to disable, false to enable the server side code.</summary>
+        /// <summary>
+        /// True to disable, false to enable the server side code.
+        /// True表示禁用，false表示启用服务器端代码。
+        /// </summary>
         public bool DisableServerSideCode = false;
 
 
         /// <summary>
         /// Defines the default stream encoding to use. Default is System.Text.Encoding.Default.
+        /// 定义要使用的默认流编码。默认是System.Text.Encoding.Default。
         /// </summary>
         public Encoding OptionDefaultStreamEncoding;
 
         /// <summary>
         /// Force to take the original comment instead of creating it
+        /// 强制接受原始评论，而不是创建它
         /// </summary>
         public bool OptionXmlForceOriginalComment;
 
@@ -139,46 +156,60 @@ namespace HtmlAgilityPack
         /// Defines if source text must be extracted while parsing errors.
         /// If the document has a lot of errors, or cascading errors, parsing performance can be dramatically affected if set to true.
         /// Default is false.
+        /// 定义在解析错误时是否必须提取源文本。
+        /// 如果文档有很多错误或级联错误，如果设置为true，解析性能将受到极大影响。
+        /// 默认是假的。
         /// </summary>
         public bool OptionExtractErrorSourceText;
 
         // turning this on can dramatically slow performance if a lot of errors are detected
+        //如果检测到大量错误，打开此选项会显著降低性能
 
         /// <summary>
         /// Defines the maximum length of source text or parse errors. Default is 100.
+        /// 定义源文本或解析错误的最大长度。默认是100。
         /// </summary>
         public int OptionExtractErrorSourceTextMaxLength = 100;
 
         /// <summary>
         /// Defines if LI, TR, TH, TD tags must be partially fixed when nesting errors are detected. Default is false.
+        /// 定义当检测到嵌套错误时，LI、TR、TH、TD标签是否必须部分固定。默认是假的。
         /// </summary>
-        public bool OptionFixNestedTags; // fix li, tr, th, td tags
+        public bool OptionFixNestedTags; // fix li, tr, th, td tags 修复li, tr, th, t.d.标签
 
         /// <summary>
         /// Defines if output must conform to XML, instead of HTML. Default is false.
+        /// 定义输出是否必须符合XML，而不是HTML。默认是假的。
         /// </summary>
         public bool OptionOutputAsXml;
 
         /// <summary>
         /// If used together with <see cref="OptionOutputAsXml"/> and enabled, Xml namespaces in element names are preserved. Default is false.
+        /// 如果和 "OptionOutputAsXml"一起使用和启用，则保留元素名称中的Xml名称空间。默认是假的。
         /// </summary>
         public bool OptionPreserveXmlNamespaces;
 
         /// <summary>
         /// Defines if attribute value output must be optimized (not bound with double quotes if it is possible). Default is false.
+        /// 定义if属性值输出必须优化(如果可能，不绑定双引号)。默认是假的。
         /// </summary>
         public bool OptionOutputOptimizeAttributeValues;
 
-        /// <summary>Defines the global attribute value quote. When specified, it will always win.</summary>
+        /// <summary>
+        /// Defines the global attribute value quote. When specified, it will always win.
+        /// 定义全局属性值引号。一旦指定，它将永远是赢家。
+        /// </summary>
         public AttributeValueQuote? GlobalAttributeValueQuote;
 
         /// <summary>
         /// Defines if name must be output with it's original case. Useful for asp.net tags and attributes. Default is false.
+        /// 定义name是否必须与它的原始case一起输出。对asp.net标签和属性很有用。默认是假的。
         /// </summary>
         public bool OptionOutputOriginalCase;
 
         /// <summary>
         /// Defines if name must be output in uppercase. Default is false.
+        /// 定义名称是否必须以大写形式输出。默认是假的。
         /// </summary>
         public bool OptionOutputUpperCase;
 
@@ -186,34 +217,43 @@ namespace HtmlAgilityPack
         /// Defines if declared encoding must be read from the document.
         /// Declared encoding is determined using the meta http-equiv="content-type" content="text/html;charset=XXXXX" html node.
         /// Default is true.
+        /// 定义声明的编码是否必须从文档中读取。
+        /// 声明的编码通过meta http-equiv="content-type" content="text/html;charset=XXXXX" html节点来确定。
+        /// 默认是正确的。
         /// </summary>
         public bool OptionReadEncoding = true;
 
         /// <summary>
         /// Defines the name of a node that will throw the StopperNodeException when found as an end node. Default is null.
+        /// 定义节点的名称，当发现该节点为结束节点时，将抛出StopperNodeException。默认为空。
         /// </summary>
         public string OptionStopperNodeName;
 
         /// <summary>
         /// Defines if attributes should use original names by default, rather than lower case. Default is false.
+        /// 默认情况下，定义属性是否应该使用原始名称，而不是小写。默认是假的。
         /// </summary>
         public bool OptionDefaultUseOriginalName;
 
         /// <summary>
         /// Defines if the 'id' attribute must be specifically used. Default is true.
+        /// 定义是否必须特别使用'id'属性。默认是正确的。
         /// </summary>
         public bool OptionUseIdAttribute = true;
 
         /// <summary>
         /// Defines if empty nodes must be written as closed during output. Default is false.
+        /// 定义输出期间是否必须将空节点写为关闭节点。默认是假的。
         /// </summary>
         public bool OptionWriteEmptyNodes;
 
-	    /// <summary>
-	    /// The max number of nested child nodes. 
-	    /// Added to prevent stackoverflow problem when a page has tens of thousands of opening html tags with no closing tags 
-	    /// </summary>
-	    public int OptionMaxNestedChildNodes = 0;
+        /// <summary>
+        /// The max number of nested child nodes. 
+        /// Added to prevent stackoverflow problem when a page has tens of thousands of opening html tags with no closing tags 
+        /// 嵌套子节点的最大数目。
+        /// 添加了防止stackoverflow问题时，一个页面有成千上万的打开html标签没有关闭标签
+        /// </summary>
+        public int OptionMaxNestedChildNodes = 0;
 
 
 		#endregion
@@ -242,6 +282,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates an instance of an HTML document.
+        /// 创建一个HTML文档的实例。
         /// </summary>
         public HtmlDocument()
         {
@@ -352,6 +393,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets a valid XML name.
+        /// 获取有效的XML名称。
         /// </summary>
         /// <param name="name">Any text.</param>
         /// <returns>A string that is a valid XML name.</returns>
@@ -413,6 +455,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Applies HTML encoding to a specified string.
+        /// 将HTML编码应用于指定的字符串。
         /// </summary>
         /// <param name="html">The input string to encode. May not be null.</param>
         /// <returns>The encoded string.</returns>
@@ -429,6 +472,7 @@ namespace HtmlAgilityPack
             }
 
             // replace & by &amp; but only once!
+            // 以…代替;但是只有一次!
 
             Regex rx = backwardCompatibility ? new Regex("&(?!(amp;)|(lt;)|(gt;)|(quot;))", RegexOptions.IgnoreCase) : new Regex("&(?!(amp;)|(lt;)|(gt;)|(quot;)|(nbsp;)|(reg;))", RegexOptions.IgnoreCase);
             return rx.Replace(html, "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;");
@@ -436,6 +480,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Determines if the specified character is considered as a whitespace character.
+        /// 确定指定的字符是否被视为空白字符。
         /// </summary>
         /// <param name="c">The character to check.</param>
         /// <returns>true if if the specified character is considered as a whitespace character.</returns>
@@ -451,6 +496,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates an HTML attribute with the specified name.
+        /// 用指定的名称创建HTML属性。
         /// </summary>
         /// <param name="name">The name of the attribute. May not be null.</param>
         /// <returns>The new HTML attribute.</returns>
@@ -466,6 +512,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates an HTML attribute with the specified name.
+        /// 用指定的名称创建HTML属性。
         /// </summary>
         /// <param name="name">The name of the attribute. May not be null.</param>
         /// <param name="value">The value of the attribute.</param>
@@ -484,6 +531,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates an HTML comment node.
+        /// 创建HTML注释节点。
         /// </summary>
         /// <returns>The new HTML comment node.</returns>
         public HtmlCommentNode CreateComment()
@@ -493,6 +541,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates an HTML comment node with the specified comment text.
+        /// 使用指定的注释文本创建HTML注释节点。
         /// </summary>
         /// <param name="comment">The comment text. May not be null.</param>
         /// <returns>The new HTML comment node.</returns>
@@ -510,6 +559,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates an HTML element node with the specified name.
+        /// 用指定的名称创建HTML元素节点。
         /// </summary>
         /// <param name="name">The qualified name of the element. May not be null.</param>
         /// <returns>The new HTML node.</returns>
@@ -527,6 +577,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates an HTML text node.
+        /// 创建HTML文本节点。
         /// </summary>
         /// <returns>The new HTML text node.</returns>
         public HtmlTextNode CreateTextNode()
@@ -536,6 +587,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Creates an HTML text node with the specified text.
+        /// 使用指定的文本创建HTML文本节点。
         /// </summary>
         /// <param name="text">The text of the node. May not be null.</param>
         /// <returns>The new HTML text node.</returns>
@@ -553,6 +605,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Detects the encoding of an HTML stream.
+        /// 检测HTML流的编码。
         /// </summary>
         /// <param name="stream">The input stream. May not be null.</param>
         /// <returns>The detected encoding.</returns>
@@ -563,6 +616,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Detects the encoding of an HTML stream.
+        /// 检测HTML流的编码。
         /// </summary>
         /// <param name="stream">The input stream. May not be null.</param>
         /// <param name="checkHtml">The html is checked.</param>
@@ -582,6 +636,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Detects the encoding of an HTML text provided on a TextReader.
+        /// 检测TextReader上提供的HTML文本的编码。
         /// </summary>
         /// <param name="reader">The TextReader used to feed the HTML. May not be null.</param>
         /// <returns>The detected encoding.</returns>
@@ -638,9 +693,10 @@ namespace HtmlAgilityPack
             return _streamencoding;
         }
 
-     
+
         /// <summary>
         /// Detects the encoding of an HTML text.
+        /// 检测HTML文本的编码。
         /// </summary>
         /// <param name="html">The input html text. May not be null.</param>
         /// <returns>The detected encoding.</returns>
@@ -660,6 +716,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets the HTML node with the specified 'id' attribute value.
+        /// 获取具有指定'id'属性值的HTML节点。
         /// </summary>
         /// <param name="id">The attribute id to match. May not be null.</param>
         /// <returns>The HTML node with the matching id or null if not found.</returns>
@@ -680,6 +737,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Loads an HTML document from a stream.
+        /// 从流中加载HTML文档。
         /// </summary>
         /// <param name="stream">The input stream.</param>
         public void Load(Stream stream)
@@ -689,9 +747,13 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Loads an HTML document from a stream.
+        /// 从流中加载HTML文档。
         /// </summary>
         /// <param name="stream">The input stream.</param>
-        /// <param name="detectEncodingFromByteOrderMarks">Indicates whether to look for byte order marks at the beginning of the stream.</param>
+        /// <param name="detectEncodingFromByteOrderMarks">
+        /// Indicates whether to look for byte order marks at the beginning of the stream.
+        /// 指示是否在流的开始处查找字节顺序标记。
+        /// </param>
         public void Load(Stream stream, bool detectEncodingFromByteOrderMarks)
         {
             Load(new StreamReader(stream, detectEncodingFromByteOrderMarks));
@@ -699,9 +761,13 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Loads an HTML document from a stream.
+        /// 从流中加载HTML文档。
         /// </summary>
         /// <param name="stream">The input stream.</param>
-        /// <param name="encoding">The character encoding to use.</param>
+        /// <param name="encoding">
+        /// The character encoding to use.
+        /// 要使用的字符编码。
+        /// </param>
         public void Load(Stream stream, Encoding encoding)
         {
             Load(new StreamReader(stream, encoding));
@@ -709,10 +775,14 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Loads an HTML document from a stream.
+        /// 从流中加载HTML文档。
         /// </summary>
         /// <param name="stream">The input stream.</param>
         /// <param name="encoding">The character encoding to use.</param>
-        /// <param name="detectEncodingFromByteOrderMarks">Indicates whether to look for byte order marks at the beginning of the stream.</param>
+        /// <param name="detectEncodingFromByteOrderMarks">
+        /// Indicates whether to look for byte order marks at the beginning of the stream.
+        /// 指示是否在流的开始处查找字节顺序标记。
+        /// </param>
         public void Load(Stream stream, Encoding encoding, bool detectEncodingFromByteOrderMarks)
         {
             Load(new StreamReader(stream, encoding, detectEncodingFromByteOrderMarks));
@@ -720,11 +790,18 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Loads an HTML document from a stream.
+        /// 从流中加载HTML文档。
         /// </summary>
         /// <param name="stream">The input stream.</param>
         /// <param name="encoding">The character encoding to use.</param>
-        /// <param name="detectEncodingFromByteOrderMarks">Indicates whether to look for byte order marks at the beginning of the stream.</param>
-        /// <param name="buffersize">The minimum buffer size.</param>
+        /// <param name="detectEncodingFromByteOrderMarks">
+        /// Indicates whether to look for byte order marks at the beginning of the stream.
+        /// 指示是否在流的开始处查找字节顺序标记。
+        /// </param>
+        /// <param name="buffersize">
+        /// The minimum buffer size.
+        /// 最小缓冲区大小。
+        /// </param>
         public void Load(Stream stream, Encoding encoding, bool detectEncodingFromByteOrderMarks, int buffersize)
         {
             Load(new StreamReader(stream, encoding, detectEncodingFromByteOrderMarks, buffersize));
@@ -733,11 +810,16 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Loads the HTML document from the specified TextReader.
+        /// 从指定的TextReader加载HTML文档。
         /// </summary>
-        /// <param name="reader">The TextReader used to feed the HTML data into the document. May not be null.</param>
+        /// <param name="reader">
+        /// The TextReader used to feed the HTML data into the document. May not be null.
+        /// 用于将HTML数据输入到文档中的TextReader。可能不是空的。
+        /// </param>
         public void Load(TextReader reader)
         {
             // all Load methods pass down to this one
+            // 所有的Load方法都传递给这个
             if (reader == null)
                 throw new ArgumentNullException("reader");
 
@@ -763,6 +845,7 @@ namespace HtmlAgilityPack
                 try
                 {
                     // trigger bom read if needed
+                    // 如果需要，读取触发器bom
                     sr.Peek();
                 }
                 // ReSharper disable EmptyGeneralCatchClause
@@ -820,8 +903,12 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Loads the HTML document from the specified string.
+        /// 从指定的字符串加载HTML文档。
         /// </summary>
-        /// <param name="html">String containing the HTML document to load. May not be null.</param>
+        /// <param name="html">
+        /// String containing the HTML document to load. May not be null.
+        /// 包含要加载的HTML文档的字符串。可能不是空的。
+        /// </param>
         public void LoadHtml(string html)
         {
             if (html == null)
@@ -837,8 +924,12 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Saves the HTML document to the specified stream.
+        /// 将HTML文档保存到指定的流。
         /// </summary>
-        /// <param name="outStream">The stream to which you want to save.</param>
+        /// <param name="outStream">
+        /// The stream to which you want to save.
+        /// 要保存到的流。
+        /// </param>
         public void Save(Stream outStream)
         {
             StreamWriter sw = new StreamWriter(outStream, GetOutEncoding());
@@ -847,6 +938,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Saves the HTML document to the specified stream.
+        /// 将HTML文档保存到指定的流。
         /// </summary>
         /// <param name="outStream">The stream to which you want to save. May not be null.</param>
         /// <param name="encoding">The character encoding to use. May not be null.</param>
@@ -869,6 +961,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Saves the HTML document to the specified StreamWriter.
+        /// 将HTML文档保存到指定的StreamWriter中。
         /// </summary>
         /// <param name="writer">The StreamWriter to which you want to save.</param>
         public void Save(StreamWriter writer)
@@ -878,6 +971,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Saves the HTML document to the specified TextWriter.
+        /// 将HTML文档保存到指定的TextWriter中。
         /// </summary>
         /// <param name="writer">The TextWriter to which you want to save. May not be null.</param>
         public void Save(TextWriter writer)
@@ -893,6 +987,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Saves the HTML document to the specified XmlWriter.
+        /// 将HTML文档保存到指定的XmlWriter中。
         /// </summary>
         /// <param name="writer">The XmlWriter to which you want to save.</param>
         public void Save(XmlWriter writer)
@@ -933,6 +1028,7 @@ namespace HtmlAgilityPack
         internal Encoding GetOutEncoding()
         {
             // when unspecified, use the stream encoding first
+            //当未指定时，请先使用流编码
             return _declaredencoding ?? (_streamencoding ?? OptionDefaultStreamEncoding);
         }
 
@@ -2194,6 +2290,9 @@ namespace HtmlAgilityPack
 
         #region Nested type: ParseState
 
+        /// <summary>
+        /// 解析状态
+        /// </summary>
         private enum ParseState
         {
             Text,
