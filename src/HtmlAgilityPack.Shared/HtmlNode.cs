@@ -3,7 +3,7 @@
 // Forum & Issues: https://github.com/zzzprojects/html-agility-pack
 // License: https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE
 // More projects: http://www.zzzprojects.com/
-// Copyright © ZZZ Projects Inc. 2014 - 2017. All rights reserved.
+// Copyright ?ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
 using System;
 using System.Collections;
@@ -20,6 +20,7 @@ namespace HtmlAgilityPack
 {
 	/// <summary>
 	/// Represents an HTML node.
+	/// ±íÊ¾HTML½Úµã¡£
 	/// </summary>
 	[DebuggerDisplay("Name: {OriginalName}")]
 	public partial class HtmlNode
@@ -66,24 +67,29 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the name of a comment node. It is actually defined as '#comment'.
+		/// »ñÈ¡×¢ÊÍ½ÚµãµÄÃû³Æ¡£ËüÊµ¼ÊÉÏ±»¶¨ÒåÎª'#comment'¡£
 		/// </summary>
 		public static readonly string HtmlNodeTypeNameComment = "#comment";
 
 		/// <summary>
 		/// Gets the name of the document node. It is actually defined as '#document'.
+		/// »ñÈ¡ÎÄµµ½ÚµãµÄÃû³Æ¡£ËüÊµ¼ÊÉÏ±»¶¨ÒåÎª'#document'¡£
 		/// </summary>
 		public static readonly string HtmlNodeTypeNameDocument = "#document";
 
 		/// <summary>
 		/// Gets the name of a text node. It is actually defined as '#text'.
+		/// »ñÈ¡ÎÄ±¾½ÚµãµÄÃû³Æ¡£ËüÊµ¼ÊÉÏ±»¶¨ÒåÎª'#text'¡£
 		/// </summary>
 		public static readonly string HtmlNodeTypeNameText = "#text";
 
 		/// <summary>
 		/// Gets a collection of flags that define specific behaviors for specific element nodes.
 		/// The table contains a DictionaryEntry list with the lowercase tag name as the Key, and a combination of HtmlElementFlags as the Value.
+		/// »ñÈ¡ÎªÌØ¶¨ÔªËØ½Úµã¶¨ÒåÌØ¶¨ĞĞÎªµÄ±êÖ¾¼¯ºÏ¡£
+		/// ¸Ã±í°üº¬Ò»¸öDictionaryEntryÁĞ±í£¬Æä¼üÎªĞ¡Ğ´±ê¼ÇÃû£¬ÖµÎªHtmlElementFlagsµÄ×éºÏ¡£
 		/// </summary>
-		public static Dictionary<string, HtmlElementFlag> ElementsFlags; 
+		public static Dictionary<string, HtmlElementFlag> ElementsFlags;
 
 		#endregion
 
@@ -91,10 +97,12 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Initialize HtmlNode. Builds a list of all tags that have special allowances
+		/// ³õÊ¼»¯HtmlNode¡£¹¹½¨¾ßÓĞÌØÊâ½òÌùµÄËùÓĞ±êÇ©µÄÁĞ±í
 		/// </summary>
 		static HtmlNode()
 		{
 			// tags whose content may be anything
+			// ±êÇ©µÄÄÚÈİ¿ÉÒÔÊÇÈÎºÎ¶«Î÷
 			ElementsFlags = new Dictionary<string, HtmlElementFlag>(StringComparer.OrdinalIgnoreCase);
 			ElementsFlags.Add("script", HtmlElementFlag.CData);
 			ElementsFlags.Add("style", HtmlElementFlag.CData);
@@ -103,6 +111,7 @@ namespace HtmlAgilityPack
 			ElementsFlags.Add("title", HtmlElementFlag.CData);
 
 			// tags that can not contain other tags
+			// ²»ÄÜ°üº¬ÆäËû±ê¼ÇµÄ±ê¼Ç
 			ElementsFlags.Add("base", HtmlElementFlag.Empty);
 			ElementsFlags.Add("link", HtmlElementFlag.Empty);
 			ElementsFlags.Add("meta", HtmlElementFlag.Empty);
@@ -123,12 +132,17 @@ namespace HtmlAgilityPack
 			ElementsFlags.Add("source", HtmlElementFlag.Empty);
 			ElementsFlags.Add("form", HtmlElementFlag.CanOverlap);
 
-			//// they sometimes contain, and sometimes they don 't...
+			// they sometimes contain, and sometimes they don 't...
+			// ËüÃÇÓĞÊ±°üº¬£¬ÓĞÊ±²»°üº¬¡­¡­
 			//ElementsFlags.Add("option", HtmlElementFlag.Empty);
+			//ElementsFlags¡£Ìí¼Ó(¡°Ñ¡Ôñ¡±,HtmlElementFlag.Empty);
 
 			// tag whose closing tag is equivalent to open tag:
+			// ½áÊø±êÇ©µÈ¼ÛÓÚ´ò¿ª±êÇ©µÄ±êÇ©:
 			// <p>bla</p>bla will be transformed into <p>bla</p>bla
+			//<p>bla</p>bla½«±»×ª»¯Îª<p>bla</p>bla
 			// <p>bla<p>bla will be transformed into <p>bla<p>bla and not <p>bla></p><p>bla</p> or <p>bla<p>bla</p></p>
+			// <p>bla<p>bla½«×ª»¯Îª<p>bla<p>bla¶ø²»ÊÇ<p>bla&gt;</p><p>bla</p>»ò<p>bla<p>bla</p></p>
 			//<br> see above
 			ElementsFlags.Add("br", HtmlElementFlag.Empty | HtmlElementFlag.Closed);
 
@@ -140,6 +154,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Initializes HtmlNode, providing type, owner and where it exists in a collection
+		/// ³õÊ¼»¯HtmlNode£¬Ìá¹©ÀàĞÍ¡¢ËùÓĞÕßºÍËüÔÚ¼¯ºÏÖĞµÄÎ»ÖÃ
 		/// </summary>
 		/// <param name="type"></param>
 		/// <param name="ownerdocument"></param>
@@ -173,8 +188,10 @@ namespace HtmlAgilityPack
 				if (!Closed)
 				{
 					// we use the index as the key
+					//ÎÒÃÇÊ¹ÓÃË÷Òı×÷Îª¼ü
 
 					// -1 means the node comes from public
+					// -1±íÊ¾½ÚµãÀ´×Ôpublic
 					if (-1 != index)
 					{
 						_ownerdocument.Openednodes.Add(index, this);
@@ -184,6 +201,7 @@ namespace HtmlAgilityPack
 
 			if ((-1 != index) || (type == HtmlNodeType.Comment) || (type == HtmlNodeType.Text)) return;
 			// innerhtml and outerhtml must be calculated
+			// innerhtmlºÍouterhtml±ØĞë¼ÆËã
 			SetChanged();
 		}
 
@@ -193,6 +211,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the collection of HTML attributes for this node. May not be null.
+		/// »ñÈ¡´Ë½ÚµãµÄHTMLÊôĞÔ¼¯ºÏ¡£¿ÉÄÜ²»ÊÇ¿ÕµÄ¡£
 		/// </summary>
 		public HtmlAttributeCollection Attributes
 		{
@@ -210,6 +229,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets all the children of the node.
+		/// »ñÈ¡½ÚµãµÄËùÓĞ×Ó½Úµã¡£
 		/// </summary>
 		public HtmlNodeCollection ChildNodes
 		{
@@ -219,6 +239,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets a value indicating if this node has been closed or not.
+		/// »ñÈ¡Ò»¸öÖµ£¬¸ÃÖµÖ¸Ê¾´Ë½ÚµãÊÇ·ñÒÑ¹Ø±Õ¡£
 		/// </summary>
 		public bool Closed
 		{
@@ -227,6 +248,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the collection of HTML attributes for the closing tag. May not be null.
+		/// »ñÈ¡½áÊø±ê¼ÇµÄHTMLÊôĞÔ¼¯ºÏ¡£¿ÉÄÜ²»ÊÇ¿ÕµÄ¡£
 		/// </summary>
 		public HtmlAttributeCollection ClosingAttributes
 		{
@@ -235,6 +257,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the closing tag of the node, null if the node is self-closing.
+		/// »ñÈ¡½ÚµãµÄ½áÊø±ê¼Ç£¬Èç¹û½ÚµãÊÇ×Ô¹Ø±ÕµÄ£¬ÔòÎª¿Õ¡£
 		/// </summary>
 		public HtmlNode EndNode
 		{
@@ -243,6 +266,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the first child of the node.
+		/// »ñÈ¡½ÚµãµÄµÚÒ»¸ö×Ó½Úµã¡£
 		/// </summary>
 		public HtmlNode FirstChild
 		{
@@ -251,6 +275,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets a value indicating whether the current node has any attributes.
+		/// »ñÈ¡Ò»¸öÖµ£¬¸ÃÖµÖ¸Ê¾µ±Ç°½ÚµãÊÇ·ñ¾ßÓĞÈÎºÎÊôĞÔ¡£
 		/// </summary>
 		public bool HasAttributes
 		{
@@ -272,6 +297,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets a value indicating whether this node has any child nodes.
+		/// »ñÈ¡Ò»¸öÖµ£¬¸ÃÖµÖ¸Ê¾´Ë½ÚµãÊÇ·ñÓĞÈÎºÎ×Ó½Úµã¡£
 		/// </summary>
 		public bool HasChildNodes
 		{
@@ -293,6 +319,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets a value indicating whether the current node has any attributes on the closing tag.
+		/// »ñÈ¡Ò»¸öÖµ£¬¸ÃÖµÖ¸Ê¾µ±Ç°½ÚµãÊÇ·ñ¾ßÓĞ¹Ø±Õ±ê¼ÇÉÏµÄÈÎºÎÊôĞÔ¡£
 		/// </summary>
 		public bool HasClosingAttributes
 		{
@@ -319,6 +346,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets or sets the value of the 'id' HTML attribute. The document must have been parsed using the OptionUseIdAttribute set to true.
+		/// »ñÈ¡»òÉèÖÃ¡°id¡±HTMLÊôĞÔµÄÖµ¡£ÎÄµµ±ØĞëÊ¹ÓÃÉèÖÃÎªtrueµÄOptionUseIdAttribute½øĞĞ½âÎö¡£
 		/// </summary>
 		public string Id
 		{
@@ -343,6 +371,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets or Sets the HTML between the start and end tags of the object.
+		/// »ñÈ¡»òÉèÖÃ¶ÔÏóµÄ¿ªÊ¼±ê¼ÇºÍ½áÊø±ê¼ÇÖ®¼äµÄHTML¡£
 		/// </summary>
 		public virtual string InnerHtml
 		{
@@ -374,6 +403,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the text between the start and end tags of the object.
+		/// »ñÈ¡¶ÔÏóµÄ¿ªÊ¼±ê¼ÇºÍ½áÊø±ê¼ÇÖ®¼äµÄÎÄ±¾¡£
 		/// </summary>
 		public virtual string InnerText
 		{
@@ -427,15 +457,19 @@ namespace HtmlAgilityPack
                 return;
             }
 
-            // Don't display comment or comment child nodes
-            if (_nodetype == HtmlNodeType.Comment)
+			// Don't display comment or comment child nodes
+			// ²»ÒªÏÔÊ¾×¢ÊÍ»ò×¢ÊÍ×Ó½Úµã
+			if (_nodetype == HtmlNodeType.Comment)
             {
                 return;
             }
 
-            // note: right now, this method is *slow*, because we recompute everything.
-            // it could be optimized like innerhtml
-            if (!HasChildNodes || (_isHideInnerText && !isDisplayScriptingText))
+			// note: right now, this method is *slow*, because we recompute everything.
+			// it could be optimized like innerhtml
+			//×¢Òâ:ÏÖÔÚ£¬Õâ¸ö·½·¨ÊÇ*slow*µÄ£¬ÒòÎªÎÒÃÇĞèÒªÖØĞÂ¼ÆËãËùÓĞÄÚÈİ¡£
+			//Ëü¿ÉÒÔÏñinnerhtmlÒ»ÑùÓÅ»¯
+
+			if (!HasChildNodes || (_isHideInnerText && !isDisplayScriptingText))
             {
                 return;
             }
@@ -444,7 +478,10 @@ namespace HtmlAgilityPack
                 node.InternalInnerText(sb, isDisplayScriptingText, depthLevel);
         }
 
-        /// <summary>Gets direct inner text.</summary>
+		/// <summary>
+		/// Gets direct inner text.
+		/// »ñÈ¡Ö±½ÓÄÚ²¿ÎÄ±¾
+		/// </summary>
 		/// <returns>The direct inner text.</returns>
 		public virtual string GetDirectInnerText()
 		{
@@ -464,6 +501,7 @@ namespace HtmlAgilityPack
 				return ((HtmlTextNode)this).Text;
 
 			// Don't display comment or comment child nodes
+			// ²»ÒªÏÔÊ¾×¢ÊÍ»ò×¢ÊÍ×Ó½Úµã
 			if (_nodetype == HtmlNodeType.Comment)
 				return "";
 
@@ -534,6 +572,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the last child of the node.
+		/// »ñÈ¡½ÚµãµÄ×îºóÒ»¸ö×Ó½Úµã¡£
 		/// </summary>
 		public HtmlNode LastChild
 		{
@@ -542,6 +581,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the line number of this node in the document.
+		/// »ñÈ¡ÎÄµµÖĞ´Ë½ÚµãµÄĞĞºÅ¡£
 		/// </summary>
 		public int Line
 		{
@@ -551,6 +591,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the column number of this node in the document.
+		/// »ñÈ¡ÎÄµµÖĞ´Ë½ÚµãµÄÁĞºÅ¡£
 		/// </summary>
 		public int LinePosition
 		{
@@ -560,6 +601,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the stream position of the area between the opening and closing tag of the node, relative to the start of the document.
+		/// »ñÈ¡½ÚµãµÄ¿ªÊ¼±ê¼ÇºÍ½áÊø±ê¼ÇÖ®¼äÇøÓòÏà¶ÔÓÚÎÄµµ¿ªÍ·µÄÁ÷Î»ÖÃ¡£
 		/// </summary>
 		public int InnerStartIndex
 		{
@@ -567,15 +609,17 @@ namespace HtmlAgilityPack
 		}
 
 		/// <summary>
-        /// Gets the stream position of the area of the beginning of the tag, relative to the start of the document.
-        /// </summary>
-        public int OuterStartIndex
+		/// Gets the stream position of the area of the beginning of the tag, relative to the start of the document.
+		/// »ñÈ¡±ê¼Ç¿ªÍ·ÇøÓòÏà¶ÔÓÚÎÄµµ¿ªÍ·µÄÁ÷Î»ÖÃ¡£
+		/// </summary>
+		public int OuterStartIndex
         {
             get { return _outerstartindex; }
         }
 
 		/// <summary>
 		/// Gets the length of the area between the opening and closing tag of the node.
+		/// »ñÈ¡½ÚµãµÄ¿ªÊ¼±ê¼ÇºÍ½áÊø±ê¼ÇÖ®¼äµÄÇøÓòµÄ³¤¶È¡£
 		/// </summary>
 		public int InnerLength
 		{
@@ -584,6 +628,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the length of the entire node, opening and closing tag included.
+		/// »ñÈ¡°üÀ¨¿ªÊ¼ºÍ½áÊø±ê¼ÇµÄÕû¸ö½ÚµãµÄ³¤¶È¡£
 		/// </summary>
 		public int OuterLength
 		{
@@ -592,6 +637,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets or sets this node's name.
+		/// »ñÈ¡»òÉèÖÃ´Ë½ÚµãµÄÃû³Æ¡£
 		/// </summary>
 		public string Name
 		{
@@ -621,6 +667,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the HTML node immediately following this element.
+		/// »ñÈ¡½ô¸úÔÚ´ËÔªËØÖ®ºóµÄHTML½Úµã¡£
 		/// </summary>
 		public HtmlNode NextSibling
 		{
@@ -630,6 +677,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the type of this node.
+		/// »ñÈ¡´Ë½ÚµãµÄÀàĞÍ¡£
 		/// </summary>
 		public HtmlNodeType NodeType
 		{
@@ -639,6 +687,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// The original unaltered name of the tag
+		/// ±êÇ©Ô­À´Î´¸ü¸ÄµÄÃû³Æ
 		/// </summary>
 		public string OriginalName
 		{
@@ -647,6 +696,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets or Sets the object and its content in HTML.
+		/// »ñÈ¡»òÉèÖÃ¶ÔÏó¼°ÆäHTMLÄÚÈİ¡£
 		/// </summary>
 		public virtual string OuterHtml
 		{
@@ -674,6 +724,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the <see cref="HtmlDocument"/> to which this node belongs.
+		/// »ñÈ¡ <see cref="HtmlDocument"/>½ÚµãËùÊôµÄ½Úµã¡£
 		/// </summary>
 		public HtmlDocument OwnerDocument
 		{
@@ -683,6 +734,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the parent of this node (for nodes that can have parents).
+		/// »ñÈ¡´Ë½ÚµãµÄ¸¸½Úµã(¶ÔÓÚ¿ÉÒÔ¾ßÓĞ¸¸½ÚµãµÄ½Úµã)¡£
 		/// </summary>
 		public HtmlNode ParentNode
 		{
@@ -692,6 +744,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the node immediately preceding this node.
+		/// »ñÈ¡½ô°¤ÔÚ´Ë½ÚµãÇ°ÃæµÄ½Úµã
 		/// </summary>
 		public HtmlNode PreviousSibling
 		{
@@ -701,6 +754,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets the stream position of this node in the document, relative to the start of the document.
+		/// »ñÈ¡´Ë½ÚµãÔÚÎÄµµÖĞÏà¶ÔÓÚÎÄµµ¿ªÍ·µÄÁ÷Î»ÖÃ¡£
 		/// </summary>
 		public int StreamPosition
 		{
@@ -709,6 +763,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets a valid XPath string that points to this node
+		/// »ñÈ¡Ö¸Ïò´Ë½ÚµãµÄÓĞĞ§XPath×Ö·û´®
 		/// </summary>
 		public string XPath
 		{
@@ -724,6 +779,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// The depth of the node relative to the opening root html element. This value is used to determine if a document has to many nested html nodes which can cause stack overflows
+		/// ½ÚµãÏà¶ÔÓÚ¿ªÊ¼µÄ¸ùhtmlÔªËØµÄÉî¶È¡£´ËÖµÓÃÓÚÈ·¶¨ÎÄµµÊÇ·ñÓĞĞí¶à¿ÉÄÜµ¼ÖÂ¶ÑÕ»Òç³öµÄÇ¶Ì×html½Úµã
 		/// </summary>
 		public int Depth { get; set; }
 
@@ -733,8 +789,12 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Determines if an element node can be kept overlapped.
+		/// È·¶¨Ò»¸öÔªËØ½ÚµãÊÇ·ñ¿ÉÒÔ±£³ÖÖØµş¡£
 		/// </summary>
-		/// <param name="name">The name of the element node to check. May not be <c>null</c>.</param>
+		/// <param name="name">
+		/// The name of the element node to check. May not be <c>null</c>.
+		/// Òª¼ì²éµÄÔªËØ½ÚµãµÄÃû³Æ¡£¿ÉÄÜ²»ÊÇ <c>null</c>
+		/// </param>
 		/// <returns>true if the name is the name of an element node that can be kept overlapped, <c>false</c> otherwise.</returns>
 		public static bool CanOverlapElement(string name)
 		{
@@ -754,6 +814,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Creates an HTML node from a string representing literal HTML.
+		/// ´Ó±íÊ¾ÎÄ×ÖHTMLµÄ×Ö·û´®´´½¨HTML½Úµã¡£
 		/// </summary>
 		/// <param name="html">The HTML text.</param>
 		/// <returns>The newly created node instance.</returns>
@@ -764,9 +825,10 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Creates an HTML node from a string representing literal HTML.
+		/// ´Ó±íÊ¾ÎÄ×ÖHTMLµÄ×Ö·û´®´´½¨HTML½Úµã¡£
 		/// </summary>
 		/// <param name="html">The HTML text.</param>
-		/// <param name="htmlDocumentBuilder">The HTML Document builder.</param>
+		/// <param name="htmlDocumentBuilder">The HTML Document builder.HTMLÎÄµµ¹¹½¨Æ÷</param>
 		/// <returns>The newly created node instance.</returns>
 		public static HtmlNode CreateNode(string html, Action<HtmlDocument> htmlDocumentBuilder)
 		{
@@ -800,9 +862,16 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Determines if an element node is a CDATA element node.
+		/// È·¶¨ÔªËØ½ÚµãÊÇ·ñÊÇCDATAÔªËØ½Úµã¡£
 		/// </summary>
-		/// <param name="name">The name of the element node to check. May not be null.</param>
-		/// <returns>true if the name is the name of a CDATA element node, false otherwise.</returns>
+		/// <param name="name">
+		/// The name of the element node to check. May not be null.
+		/// Òª¼ì²éµÄÔªËØ½ÚµãµÄÃû³Æ¡£¿ÉÄÜ²»ÊÇ¿ÕµÄ¡£
+		/// </param>
+		/// <returns>
+		/// true if the name is the name of a CDATA element node, false otherwise.
+		/// Èç¹ûÃû³ÆÊÇCDATAÔªËØ½ÚµãµÄÃû³Æ£¬ÔòÎªtrue£¬·ñÔòÎªfalse¡£
+		/// </returns>
 		public static bool IsCDataElement(string name)
 		{
 			if (name == null)
@@ -821,6 +890,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Determines if an element node is closed.
+		/// È·¶¨ÔªËØ½ÚµãÊÇ·ñ¹Ø±Õ¡£
 		/// </summary>
 		/// <param name="name">The name of the element node to check. May not be null.</param>
 		/// <returns>true if the name is the name of a closed element node, false otherwise.</returns>
@@ -842,6 +912,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Determines if an element node is defined as empty.
+		/// È·¶¨ÔªËØ½ÚµãÊÇ·ñ¶¨ÒåÎª¿Õ¡£
 		/// </summary>
 		/// <param name="name">The name of the element node to check. May not be null.</param>
 		/// <returns>true if the name is the name of an empty element node, false otherwise.</returns>
@@ -880,6 +951,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Determines if a text corresponds to the closing tag of an node that can be kept overlapped.
+		/// È·¶¨ÎÄ±¾ÊÇ·ñ¶ÔÓ¦ÓÚ¿É±£³ÖÖØµşµÄ½ÚµãµÄ½áÊø±ê¼Ç¡£
 		/// </summary>
 		/// <param name="text">The text to check. May not be null.</param>
 		/// <returns>true or false.</returns>
@@ -905,6 +977,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Returns a collection of all ancestor nodes of this element.
+		/// ·µ»Ø´ËÔªËØµÄËùÓĞ×æÏÈ½ÚµãµÄ¼¯ºÏ¡£
 		/// </summary>
 		/// <returns></returns>
 		public IEnumerable<HtmlNode> Ancestors()
@@ -925,6 +998,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Get Ancestors with matching name
+		/// »ñÈ¡¾ßÓĞÆ¥ÅäÃû³ÆµÄ×æÏÈ
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
@@ -937,6 +1011,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Returns a collection of all ancestor nodes of this element.
+		/// ·µ»Ø´ËÔªËØµÄËùÓĞ×æÏÈ½ÚµãµÄ¼¯ºÏ¡£
 		/// </summary>
 		/// <returns></returns>
 		public IEnumerable<HtmlNode> AncestorsAndSelf()
@@ -947,6 +1022,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets all anscestor nodes and the current node
+		/// »ñÈ¡ËùÓĞ×æÏÈ½ÚµãºÍµ±Ç°½Úµã
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
@@ -959,6 +1035,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Adds the specified node to the end of the list of children of this node.
+		/// ½«Ö¸¶¨µÄ½ÚµãÌí¼Óµ½´Ë½ÚµãµÄ×Ó½ÚµãÁĞ±íµÄÄ©Î²¡£
 		/// </summary>
 		/// <param name="newChild">The node to add. May not be null.</param>
 		/// <returns>The node added.</returns>
@@ -977,7 +1054,10 @@ namespace HtmlAgilityPack
 			return newChild;
 		}
 
-		/// <summary>Sets child nodes identifier.</summary>
+		/// <summary>
+		/// Sets child nodes identifier.
+		/// ÉèÖÃ×Ó½Úµã±êÊ¶·û¡£
+		/// </summary>
 		/// <param name="chilNode">The chil node.</param>
 		public void SetChildNodesId(HtmlNode chilNode)
 		{
@@ -990,6 +1070,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Adds the specified node to the end of the list of children of this node.
+		/// ½«Ö¸¶¨µÄ½ÚµãÌí¼Óµ½´Ë½ÚµãµÄ×Ó½ÚµãÁĞ±íµÄÄ©Î²¡£
 		/// </summary>
 		/// <param name="newChildren">The node list to add. May not be null.</param>
 		public void AppendChildren(HtmlNodeCollection newChildren)
@@ -1005,6 +1086,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets all Attributes with name
+		/// »ñÈ¡ËùÓĞ¾ßÓĞÃû³ÆµÄÊôĞÔ
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
@@ -1015,6 +1097,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Creates a duplicate of the node
+		/// ´´½¨½ÚµãµÄ¸±±¾
 		/// </summary>
 		/// <returns></returns>
 		public HtmlNode Clone()
@@ -1024,6 +1107,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Creates a duplicate of the node and changes its name at the same time.
+		/// ´´½¨½ÚµãµÄ¸±±¾£¬²¢Í¬Ê±¸ü¸ÄÆäÃû³Æ¡£
 		/// </summary>
 		/// <param name="newName">The new name of the cloned node. May not be <c>null</c>.</param>
 		/// <returns>The cloned node.</returns>
@@ -1034,9 +1118,13 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Creates a duplicate of the node and changes its name at the same time.
+		/// ´´½¨½ÚµãµÄ¸±±¾£¬²¢Í¬Ê±¸ü¸ÄÆäÃû³Æ¡£
 		/// </summary>
 		/// <param name="newName">The new name of the cloned node. May not be null.</param>
-		/// <param name="deep">true to recursively clone the subtree under the specified node; false to clone only the node itself.</param>
+		/// <param name="deep">
+		/// true to recursively clone the subtree under the specified node; false to clone only the node itself.
+		/// Trueµİ¹éµØ½«×ÓÊ÷¿ËÂ¡µ½Ö¸¶¨½ÚµãÏÂ;½ö¿ËÂ¡½Úµã±¾ÉíÎªFalse¡£
+		/// </param>
 		/// <returns>The cloned node.</returns>
 		public HtmlNode CloneNode(string newName, bool deep)
 		{
@@ -1052,8 +1140,12 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Creates a duplicate of the node.
+		/// ´´½¨½ÚµãµÄ¸±±¾¡£
 		/// </summary>
-		/// <param name="deep">true to recursively clone the subtree under the specified node; false to clone only the node itself.</param>
+		/// <param name="deep">
+		/// true to recursively clone the subtree under the specified node; false to clone only the node itself.
+		/// Trueµİ¹éµØ½«×ÓÊ÷¿ËÂ¡µ½Ö¸¶¨½ÚµãÏÂ;½ö¿ËÂ¡½Úµã±¾ÉíÎªFalse¡£
+		/// </param>
 		/// <returns>The cloned node.</returns>
 		public HtmlNode CloneNode(bool deep)
 		{
@@ -1114,6 +1206,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Creates a duplicate of the node and the subtree under it.
+		/// ´´½¨½Úµã¼°ÆäÏÂµÄ×ÓÊ÷µÄ¸±±¾¡£
 		/// </summary>
 		/// <param name="node">The node to duplicate. May not be <c>null</c>.</param>
 		public void CopyFrom(HtmlNode node)
@@ -1123,6 +1216,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Creates a duplicate of the node.
+		/// ´´½¨½ÚµãµÄ¸±±¾¡£
 		/// </summary>
 		/// <param name="node">The node to duplicate. May not be <c>null</c>.</param>
 		/// <param name="deep">true to recursively clone the subtree under the specified node, false to clone only the node itself.</param>
@@ -1159,8 +1253,12 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets all Descendant nodes for this node and each of child nodes
+		/// »ñÈ¡´Ë½ÚµãºÍÃ¿¸ö×Ó½ÚµãµÄËùÓĞºó´ú½Úµã
 		/// </summary>
-		/// <param name="level">The depth level of the node to parse in the html tree</param>
+		/// <param name="level">
+		/// The depth level of the node to parse in the html tree
+		/// ÒªÔÚhtmlÊ÷ÖĞ½âÎöµÄ½ÚµãµÄÉî¶È¼¶±ğ
+		/// </param>
 		/// <returns>the current element as an HtmlNode</returns>
 		[Obsolete("Use Descendants() instead, the results of this function will change in a future version")]
 		public IEnumerable<HtmlNode> DescendantNodes(int level = 0)
@@ -1183,6 +1281,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Returns a collection of all descendant nodes of this element, in document order
+		/// °´ÎÄµµË³Ğò·µ»Ø´ËÔªËØËùÓĞ×Ó´ú½ÚµãµÄ¼¯ºÏ
 		/// </summary>
 		/// <returns></returns>
 		[Obsolete("Use DescendantsAndSelf() instead, the results of this function will change in a future version")]
@@ -1193,16 +1292,19 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets all Descendant nodes in enumerated list
+		/// »ñÈ¡Ã¶¾ÙÁĞ±íÖĞµÄËùÓĞ×Ó´ú½Úµã
 		/// </summary>
 		/// <returns></returns>
 		public IEnumerable<HtmlNode> Descendants()
 		{
 			// DO NOT REMOVE, the empty method is required for Fizzler third party library
+			//²»ÒÆ³ı£¬ÎªFizzlerµÚÈı·½¿âĞèÒª¿Õ·½·¨
 			return Descendants(0);
 		}
 
 		/// <summary>
 		/// Gets all Descendant nodes in enumerated list
+		/// »ñÈ¡Ã¶¾ÙÁĞ±íÖĞµÄËùÓĞ×Ó´ú½Úµã
 		/// </summary>
 		/// <returns></returns>
 		public IEnumerable<HtmlNode> Descendants(int level)
@@ -1225,6 +1327,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Get all descendant nodes with matching name
+		/// »ñÈ¡ËùÓĞ¾ßÓĞÆ¥ÅäÃû³ÆµÄºó´ú½Úµã
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
@@ -1237,6 +1340,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Returns a collection of all descendant nodes of this element, in document order
+		/// °´ÎÄµµË³Ğò·µ»Ø´ËÔªËØËùÓĞ×Ó´ú½ÚµãµÄ¼¯ºÏ
 		/// </summary>
 		/// <returns></returns>
 		public IEnumerable<HtmlNode> DescendantsAndSelf()
@@ -1253,6 +1357,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets all descendant nodes including this node
+		/// »ñÈ¡°üÀ¨´Ë½ÚµãÔÚÄÚµÄËùÓĞ×Ó´ú½Úµã
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
@@ -1267,6 +1372,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets first generation child node matching name
+		/// »ñÈ¡Æ¥ÅäÃû³ÆµÄµÚÒ»´ú×Ó½Úµã
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
@@ -1280,6 +1386,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Gets matching first generation child nodes matching name
+		/// »ñÈ¡Æ¥ÅäÃû³ÆµÄµÚÒ»´ú×Ó½Úµã
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
@@ -1298,30 +1405,44 @@ namespace HtmlAgilityPack
             return Attributes.Hashitems.SingleOrDefault(x => x.Key.Equals("data-" + key, StringComparison.OrdinalIgnoreCase)).Value;
         }
 
-        /// <summary>Gets the data attributes in this collection.</summary>
-        /// <returns>
-        /// An enumerator that allows foreach to be used to process the data attributes in this
-        /// collection.
-        /// </returns>
+		/// <summary>
+		/// Gets the data attributes in this collection.
+		/// »ñÈ¡´Ë¼¯ºÏÖĞµÄÊı¾İÊôĞÔ¡£
+		/// </summary>
+		/// <returns>
+		/// An enumerator that allows foreach to be used to process the data attributes in this collection.
+		/// ÔÊĞíÊ¹ÓÃforeach´¦Àí´Ë¼¯ºÏÖĞµÄÊı¾İÊôĞÔµÄÃ¶¾ÙÊı¡£
+		/// </returns>
 		public IEnumerable<HtmlAttribute> GetDataAttributes()
 		{ 
 			return Attributes.Hashitems.Where(x => x.Key.StartsWith("data-", StringComparison.OrdinalIgnoreCase)).Select(x => x.Value).ToList();
 		}
 
-        /// <summary>Gets the attributes in this collection.</summary>
-        /// <returns>
-        /// An enumerator that allows foreach to be used to process the attributes in this collection.
-        /// </returns>
+		/// <summary>
+		/// Gets the attributes in this collection.
+		/// »ñÈ¡´Ë¼¯ºÏÖĞµÄÊôĞÔ¡£
+		/// </summary>
+		/// <returns>
+		/// An enumerator that allows foreach to be used to process the attributes in this collection.
+		/// ÔÊĞíÊ¹ÓÃforeach´¦Àí´Ë¼¯ºÏÖĞµÄÊôĞÔµÄÃ¶¾ÙÊı¡£
+		/// </returns>
 		public IEnumerable<HtmlAttribute> GetAttributes()
 		{
 			return Attributes.items;
 		}
 
-        /// <summary>Gets the attributes in this collection.</summary>
-        /// <param name="attributeNames">A variable-length parameters list containing attribute names.</param>
-        /// <returns>
-        /// An enumerator that allows foreach to be used to process the attributes in this collection.
-        /// </returns>
+		/// <summary>
+		/// Gets the attributes in this collection.
+		/// »ñÈ¡´Ë¼¯ºÏÖĞµÄÊôĞÔ¡£
+		/// </summary>
+		/// <param name="attributeNames">
+		/// A variable-length parameters list containing attribute names.
+		/// °üº¬ÊôĞÔÃûµÄ±ä³¤²ÎÊıÁĞ±í¡£
+		/// </param>
+		/// <returns>
+		/// An enumerator that allows foreach to be used to process the attributes in this collection.
+		/// ÔÊĞíÊ¹ÓÃforeach´¦Àí´Ë¼¯ºÏÖĞµÄÊôĞÔµÄÃ¶¾ÙÊı¡£
+		/// </returns>
 		public IEnumerable<HtmlAttribute> GetAttributes(params string[] attributeNames)
 		{ 
 			List<HtmlAttribute> list = new List<HtmlAttribute>();
@@ -1336,9 +1457,16 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Helper method to get the value of an attribute of this node. If the attribute is not found, the default value will be returned.
+		/// ·½·¨À´»ñÈ¡´Ë½ÚµãµÄÊôĞÔµÄÖµ¡£Èç¹ûÃ»ÓĞÕÒµ½¸ÃÊôĞÔ£¬½«·µ»ØÄ¬ÈÏÖµ¡£
 		/// </summary>
-		/// <param name="name">The name of the attribute to get. May not be <c>null</c>.</param>
-		/// <param name="def">The default value to return if not found.</param>
+		/// <param name="name">
+		/// The name of the attribute to get. May not be <c>null</c>.
+		/// Òª»ñÈ¡µÄÊôĞÔµÄÃû³Æ,²»ÄÜÊÇ<c>null</c>
+		/// </param>
+		/// <param name="def">
+		/// The default value to return if not found.
+		/// Èç¹ûÃ»ÓĞÕÒµ½£¬½«·µ»ØµÄÄ¬ÈÏÖµ
+		/// </param>
 		/// <returns>The value of the attribute if found, the default value if not found.</returns>
 		public string GetAttributeValue(string name, string def)
 		{
@@ -1363,10 +1491,11 @@ namespace HtmlAgilityPack
 #else
 			return GetAttributeValue<string>(name, def);
 #endif
-        } 
+        }
 
 		/// <summary>
 		/// Helper method to get the value of an attribute of this node. If the attribute is not found, the default value will be returned.
+		/// ·½·¨À´»ñÈ¡´Ë½ÚµãµÄÊôĞÔµÄÖµ¡£Èç¹ûÃ»ÓĞÕÒµ½¸ÃÊôĞÔ£¬½«·µ»ØÄ¬ÈÏÖµ¡£
 		/// </summary>
 		/// <param name="name">The name of the attribute to get. May not be <c>null</c>.</param>
 		/// <param name="def">The default value to return if not found.</param>
@@ -1405,6 +1534,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Helper method to get the value of an attribute of this node. If the attribute is not found, the default value will be returned.
+		/// ·½·¨À´»ñÈ¡´Ë½ÚµãµÄÊôĞÔµÄÖµ¡£Èç¹ûÃ»ÓĞÕÒµ½¸ÃÊôĞÔ£¬½«·µ»ØÄ¬ÈÏÖµ¡£
 		/// </summary>
 		/// <param name="name">The name of the attribute to get. May not be <c>null</c>.</param>
 		/// <param name="def">The default value to return if not found.</param>
@@ -1444,8 +1574,8 @@ namespace HtmlAgilityPack
 
 #if !(METRO || NETSTANDARD1_3 || NETSTANDARD1_6)
 		/// <summary>
-		/// Helper method to get the value of an attribute of this node. If the attribute is not found,
-		/// the default value will be returned.
+		/// Helper method to get the value of an attribute of this node. If the attribute is not found, the default value will be returned.
+		/// ·½·¨À´»ñÈ¡´Ë½ÚµãµÄÊôĞÔµÄÖµ¡£Èç¹ûÃ»ÓĞÕÒµ½¸ÃÊôĞÔ£¬½«·µ»ØÄ¬ÈÏÖµ¡£
 		/// </summary>
 		/// <param name="name">The name of the attribute to get. May not be <c>null</c>.</param>
 		/// <param name="def">The default value to return if not found.</param>
@@ -1481,9 +1611,13 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Inserts the specified node immediately after the specified reference node.
+		/// ½«Ö¸¶¨µÄ½Úµã²åÈëµ½Ö¸¶¨µÄÒıÓÃ½ÚµãÖ®ºó¡£
 		/// </summary>
 		/// <param name="newChild">The node to insert. May not be <c>null</c>.</param>
-		/// <param name="refChild">The node that is the reference node. The newNode is placed after the refNode.</param>
+		/// <param name="refChild">
+		/// The node that is the reference node. The newNode is placed after the refNode.
+		/// ×÷Îª²Î¿¼½ÚµãµÄ½Úµã¡£newNode·ÅÔÚrefNodeÖ®ºó¡£
+		/// </param>
 		/// <returns>The node being inserted.</returns>
 		public HtmlNode InsertAfter(HtmlNode newChild, HtmlNode refChild)
 		{
@@ -1524,9 +1658,13 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Inserts the specified node immediately before the specified reference node.
+		/// ½«Ö¸¶¨µÄ½Úµã²åÈëµ½Ö¸¶¨µÄÒıÓÃ½ÚµãÖ®Ç°¡£
 		/// </summary>
 		/// <param name="newChild">The node to insert. May not be <c>null</c>.</param>
-		/// <param name="refChild">The node that is the reference node. The newChild is placed before this node.</param>
+		/// <param name="refChild">
+		/// The node that is the reference node. The newChild is placed before this node.
+		/// ×÷Îª²Î¿¼½ÚµãµÄ½Úµã¡£newChild±»·ÅÖÃÔÚÕâ¸ö½ÚµãÖ®Ç°¡£
+		/// </param>
 		/// <returns>The node being inserted.</returns>
 		public HtmlNode InsertBefore(HtmlNode newChild, HtmlNode refChild)
 		{
@@ -1567,6 +1705,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Adds the specified node to the beginning of the list of children of this node.
+		/// ½«Ö¸¶¨µÄ½ÚµãÌí¼Óµ½´Ë½ÚµãµÄ×Ó½ÚµãÁĞ±íµÄ¿ªÍ·¡£
 		/// </summary>
 		/// <param name="newChild">The node to add. May not be <c>null</c>.</param>
 		/// <returns>The node added.</returns>
@@ -1586,6 +1725,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Adds the specified node list to the beginning of the list of children of this node.
+		/// ½«Ö¸¶¨µÄ½ÚµãÁĞ±íÌí¼Óµ½´Ë½ÚµãµÄ×Ó½ÚµãÁĞ±íµÄ¿ªÍ·¡£
 		/// </summary>
 		/// <param name="newChildren">The node list to add. May not be <c>null</c>.</param>
 		public void PrependChildren(HtmlNodeCollection newChildren)
@@ -1603,6 +1743,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes node from parent collection
+		/// ´Ó¸¸¼¯ºÏÖĞÒÆ³ı½Úµã
 		/// </summary>
 		public void Remove()
 		{
@@ -1614,6 +1755,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes all the children and/or attributes of the current node.
+		/// É¾³ıµ±Ç°½ÚµãµÄËùÓĞ×Ó½ÚµãºÍ/»òÊôĞÔ¡£
 		/// </summary>
 		public void RemoveAll()
 		{
@@ -1637,6 +1779,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes all the children of the current node.
+		/// É¾³ıµ±Ç°½ÚµãµÄËùÓĞ×Ó½Úµã¡£
 		/// </summary>
 		public void RemoveAllChildren()
 		{
@@ -1659,7 +1802,10 @@ namespace HtmlAgilityPack
 			SetChanged();
 		}
 
-		/// <summary>Removes all id for node described by node.</summary>
+		/// <summary>
+		/// Removes all id for node described by node.
+		/// É¾³ı½ÚµãËùÃèÊöµÄ½ÚµãµÄËùÓĞid¡£
+		/// </summary>
 		/// <param name="node">The node.</param>
 		public void RemoveAllIDforNode(HtmlNode node)
 		{
@@ -1670,8 +1816,11 @@ namespace HtmlAgilityPack
 			}
 		}
 
-        /// <summary>Move a node already associated and append it to this node instead.</summary>
-        /// <param name="child">The child node to move.</param>
+		/// <summary>
+		/// Move a node already associated and append it to this node instead.
+		/// ÒÆ¶¯ÒÑ¹ØÁªµÄ½Úµã£¬²¢½«Æä×·¼Óµ½´Ë½Úµã¡£
+		/// </summary>
+		/// <param name="child">The child node to move.</param>
 		public void MoveChild(HtmlNode child)
 		{
 			if (child == null)
@@ -1689,8 +1838,11 @@ namespace HtmlAgilityPack
 			}
 		}
 
-        /// <summary>Move a children collection already associated and append it to this node instead.</summary>
-        /// <param name="children">The children collection already associated to move to another node.</param>
+		/// <summary>
+		/// Move a children collection already associated and append it to this node instead.
+		/// ÒÆ¶¯ÒÑ¾­¹ØÁªµÄ×Ó¼¯ºÏ£¬²¢½«Æä×·¼Óµ½´Ë½Úµã¡£
+		/// </summary>
+		/// <param name="children">The children collection already associated to move to another node.</param>
 		public void MoveChildren(HtmlNodeCollection children)
 		{
 			if (children == null)
@@ -1708,8 +1860,11 @@ namespace HtmlAgilityPack
 			}
 		}
 
-        /// <summary>Removes the children collection for this node.</summary>
-        /// <param name="oldChildren">The old children collection to remove.</param>
+		/// <summary>
+		/// Removes the children collection for this node.
+		/// ÒÆ³ı´Ë½ÚµãµÄ×Ó¼¯ºÏ¡£
+		/// </summary>
+		/// <param name="oldChildren">The old children collection to remove.</param>
 		public void RemoveChildren(HtmlNodeCollection oldChildren)
 		{
 			if (oldChildren == null)
@@ -1727,6 +1882,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes the specified child node.
+		/// É¾³ıÖ¸¶¨µÄ×Ó½Úµã¡£
 		/// </summary>
 		/// <param name="oldChild">The node being removed. May not be <c>null</c>.</param>
 		/// <returns>The node removed.</returns>
@@ -1760,9 +1916,13 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes the specified child node.
+		/// É¾³ıÖ¸¶¨µÄ×Ó½Úµã¡£
 		/// </summary>
 		/// <param name="oldChild">The node being removed. May not be <c>null</c>.</param>
-		/// <param name="keepGrandChildren">true to keep grand children of the node, false otherwise.</param>
+		/// <param name="keepGrandChildren">
+		/// true to keep grand children of the node, false otherwise.
+		/// True±íÊ¾±£Áô½ÚµãµÄ×Ó½Úµã£¬·ñÔòÎªfalse¡£
+		/// </param>
 		/// <returns>The node removed.</returns>
 		public HtmlNode RemoveChild(HtmlNode oldChild, bool keepGrandChildren)
 		{
@@ -1790,6 +1950,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Replaces the child node oldChild with newChild node.
+		/// ÓÃnewChild½ÚµãÌæ»»×Ó½ÚµãoldChild¡£
 		/// </summary>
 		/// <param name="newChild">The new node to put in the child list.</param>
 		/// <param name="oldChild">The node being replaced in the list.</param>
@@ -1832,6 +1993,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Helper method to set the value of an attribute of this node. If the attribute is not found, it will be created automatically.
+		/// ·½·¨À´ÉèÖÃ´Ë½ÚµãµÄÊôĞÔµÄÖµ¡£Èç¹ûÃ»ÓĞÕÒµ½¸ÃÊôĞÔ£¬½«×Ô¶¯´´½¨Ëü¡£
 		/// </summary>
 		/// <param name="name">The name of the attribute to set. May not be null.</param>
 		/// <param name="value">The value for the attribute.</param>
@@ -1855,6 +2017,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Saves all the children of the node to the specified TextWriter.
+		/// ½«½ÚµãµÄËùÓĞ×Ó½Úµã±£´æµ½Ö¸¶¨µÄTextWriterÖĞ¡£
 		/// </summary>
 		/// <param name="outText">The TextWriter to which you want to save.</param>
 		/// <param name="level">Identifies the level we are in starting at root with 0</param>
@@ -1878,6 +2041,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Saves all the children of the node to a string.
+		/// ½«½ÚµãµÄËùÓĞ×Ó½Úµã±£´æÎªÒ»¸ö×Ö·û´®¡£
 		/// </summary>
 		/// <returns>The saved string.</returns>
 		public string WriteContentTo()
@@ -1890,9 +2054,13 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Saves the current node to the specified TextWriter.
+		/// ½«µ±Ç°½Úµã±£´æµ½Ö¸¶¨µÄTextWriterÖĞ¡£
 		/// </summary>
 		/// <param name="outText">The TextWriter to which you want to save.</param>
-		/// <param name="level">identifies the level we are in starting at root with 0</param>
+		/// <param name="level">
+		/// identifies the level we are in starting at root with 0
+		/// ±êÊ¶ÎÒÃÇ´Ó¸ù½áµã0¿ªÊ¼Ëù´¦µÄ¼¶±ğ
+		/// </param>
 		public virtual void WriteTo(TextWriter outText, int level = 0)
 		{
 			string html;
@@ -2070,6 +2238,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Saves the current node to the specified XmlWriter.
+		/// ½«µ±Ç°½Úµã±£´æµ½Ö¸¶¨µÄXmlWriter¡£
 		/// </summary>
 		/// <param name="writer">The XmlWriter to which you want to save.</param>
 		public void WriteTo(XmlWriter writer)
@@ -2130,6 +2299,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Saves the current node to a string.
+		/// ½«µ±Ç°½Úµã±£´æÎª×Ö·û´®¡£
 		/// </summary>
 		/// <returns>The saved string.</returns>
 		public string WriteTo()
@@ -2144,6 +2314,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Sets the parent Html node and properly determines the current node's depth using the parent node's depth.
+		/// ÉèÖÃ¸¸Html½Úµã²¢Ê¹ÓÃ¸¸½ÚµãµÄÉî¶ÈÕıÈ·µØÈ·¶¨µ±Ç°½ÚµãµÄÉî¶È¡£
 		/// </summary>
 		public void SetParent(HtmlNode parent)
 		{
@@ -2469,12 +2640,13 @@ namespace HtmlAgilityPack
 			return count <= 1 ? true : false;
 		}
 
-#endregion
+		#endregion
 
-#region Class Helper
+		#region Class Helper
 
 		/// <summary>
 		/// Adds one or more classes to this node.
+		/// Ïò´Ë½ÚµãÌí¼ÓÒ»¸ö»ò¶à¸ö²ãµşÑùÊ½Àà£¨css)¡£
 		/// </summary>
 		/// <param name="name">The node list to add. May not be null.</param>
 		public void AddClass(string name)
@@ -2484,6 +2656,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Adds one or more classes to this node.
+		/// Ïò´Ë½ÚµãÌí¼ÓÒ»¸ö»ò¶à¸ö²ãµşÑùÊ½Àà£¨css)¡£
 		/// </summary>
 		/// <param name="name">The node list to add. May not be null.</param>
 		/// <param name="throwError">true to throw Error if class name exists, false otherwise.</param>
@@ -2518,6 +2691,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes the class attribute from the node.
+		/// ´Ó½ÚµãÖĞÒÆ³ı²ãµşÑùÊ½Àà£¨css)ÊôĞÔ¡£
 		/// </summary>
 		public void RemoveClass()
 		{
@@ -2526,6 +2700,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes the class attribute from the node.
+		/// ´Ó½ÚµãÖĞÒÆ³ı²ãµşÑùÊ½Àà£¨css)ÊôĞÔ¡£
 		/// </summary>
 		/// <param name="throwError">true to throw Error if class name doesn't exist, false otherwise.</param>
 		public void RemoveClass(bool throwError)
@@ -2544,6 +2719,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes the specified class from the node.
+		/// ´Ó½ÚµãÖĞÒÆ³ıÖ¸¶¨µÄ²ãµşÑùÊ½Àà£¨css)¡£
 		/// </summary>
 		/// <param name="name">The class being removed. May not be <c>null</c>.</param>
 		public void RemoveClass(string name)
@@ -2553,6 +2729,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Removes the specified class from the node.
+		/// ´Ó½ÚµãÖĞÒÆ³ıÖ¸¶¨µÄ²ãµşÑùÊ½Àà£¨css)¡£
 		/// </summary>
 		/// <param name="name">The class being removed. May not be <c>null</c>.</param>
 		/// <param name="throwError">true to throw Error if class name doesn't exist, false otherwise.</param>
@@ -2610,6 +2787,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Replaces the class name oldClass with newClass name.
+		/// ½«ÀàÃûoldClassÌæ»»ÎªnewClassÃû¡£
 		/// </summary>
 		/// <param name="newClass">The new class name.</param>
 		/// <param name="oldClass">The class being replaced.</param>
@@ -2620,6 +2798,7 @@ namespace HtmlAgilityPack
 
 		/// <summary>
 		/// Replaces the class name oldClass with newClass name.
+		/// ½«ÀàÃûoldClassÌæ»»ÎªnewClassÃû¡£
 		/// </summary>
 		/// <param name="newClass">The new class name.</param>
 		/// <param name="oldClass">The class being replaced.</param>
@@ -2662,7 +2841,10 @@ namespace HtmlAgilityPack
 			}
 		}
 
-		/// <summary>Gets the CSS Class from the node.</summary>
+		/// <summary>
+		/// Gets the CSS Class from the node.
+		/// ´Ó½Úµã»ñÈ¡²ãµşÑùÊ½Àà£¨css)¡£
+		/// </summary>
 		/// <returns>
 		///     The CSS Class from the node
 		/// </returns>
@@ -2681,7 +2863,10 @@ namespace HtmlAgilityPack
 			}
 		}
 
-		/// <summary>Check if the node class has the parameter class.</summary>
+		/// <summary>
+		/// Check if the node class has the parameter class.
+		/// ¼ì²é½ÚµãÀàÊÇ·ñÓĞ²ÎÊı²ãµşÑùÊ½Àà£¨css)¡£
+		/// </summary>
 		/// <param name="class">The class.</param>
 		/// <returns>True if node class has the parameter class, false if not.</returns>
 		public bool HasClass(string className)

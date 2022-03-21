@@ -3,7 +3,7 @@
 // Forum & Issues: https://github.com/zzzprojects/html-agility-pack
 // License: https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE
 // More projects: http://www.zzzprojects.com/
-// Copyright © ZZZ Projects Inc. 2014 - 2017. All rights reserved.
+// Copyright ?ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
 using System;
 using System.Collections;
@@ -18,6 +18,10 @@ namespace HtmlAgilityPack
     /// Follows HTML 4.0 specification found at http://www.w3.org/TR/html4/sgml/entities.html
     /// Follows Additional specification found at https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
     /// See also: https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references
+    /// ÓÃÊµÌåÌæ»»ÌØÊâ×Ö·ûµÄÊµÓÃ³ÌĞòÀà£¬·´Ö®ÒàÈ»¡£
+    /// HTML 4.0¹æ·¶¿ÉÔÚhttp://www.w3.org/TR/html4/sgml/entities.htmlÕÒµ½
+    /// ÒÔÏÂ¸½¼Ó¹æ·¶¿ÉÔÚhttps://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_referencesÕÒµ½
+    /// ²Î¼û:https://html.spec.whatwg.org/multipage/named-characters.html # named-character-references
     /// </summary>
     public class HtmlEntity
     {
@@ -41,6 +45,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// A collection of entities indexed by value.
+        /// °´ÖµË÷ÒıµÄÊµÌå¼¯ºÏ¡£
         /// </summary>
         public static Dictionary<string, int> EntityValue
         {
@@ -588,6 +593,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Replace known entities by characters.
+        /// ÓÃ×Ö·ûÌæ»»ÒÑÖªµÄÊµÌå¡£
         /// </summary>
         /// <param name="text">The source text.</param>
         /// <returns>The result text.</returns>
@@ -712,6 +718,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Clone and entitize an HtmlNode. This will affect attribute values and nodes' text. It will also entitize all child nodes.
+        /// ¿ËÂ¡²¢ÊµÌå»¯Ò»¸öHtmlNode¡£Õâ½«Ó°ÏìÊôĞÔÖµºÍ½ÚµãµÄÎÄ±¾¡£Ëü»¹½«ÊµÌå»¯ËùÓĞ×Ó½Úµã¡£
         /// </summary>
         /// <param name="node">The node to entitize.</param>
         /// <returns>An entitized cloned node.</returns>
@@ -744,6 +751,7 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Replace characters above 127 by entities.
+        /// ÓÃÊµÌåÌæ»»127ÒÔÉÏµÄ×Ö·û¡£
         /// </summary>
         /// <param name="text">The source text.</param>
         /// <returns>The result text.</returns>
@@ -754,9 +762,13 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Replace characters above 127 by entities.
+        /// ÓÃÊµÌåÌæ»»127ÒÔÉÏµÄ×Ö·û¡£
         /// </summary>
         /// <param name="text">The source text.</param>
-        /// <param name="useNames">If set to false, the function will not use known entities name. Default is true.</param>
+        /// <param name="useNames">
+        /// If set to false, the function will not use known entities name. Default is true.
+        /// Èç¹ûÉèÖÃÎªfalse£¬º¯Êı½«²»»áÊ¹ÓÃÒÑÖªµÄÊµÌåÃû¡£Ä¬ÈÏÊÇÕıÈ·µÄ¡£
+        /// </param>
         /// <returns>The result text.</returns>
         public static string Entitize(string text, bool useNames)
         {
@@ -765,10 +777,17 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Replace characters above 127 by entities.
+        /// ÓÃÊµÌåÌæ»»127ÒÔÉÏµÄ×Ö·û¡£
         /// </summary>
         /// <param name="text">The source text.</param>
-        /// <param name="useNames">If set to false, the function will not use known entities name. Default is true.</param>
-        /// <param name="entitizeQuotAmpAndLtGt">If set to true, the [quote], [ampersand], [lower than] and [greather than] characters will be entitized.</param>
+        /// <param name="useNames">
+        /// If set to false, the function will not use known entities name. Default is true.
+        ///  Èç¹ûÉèÖÃÎªfalse£¬º¯Êı½«²»»áÊ¹ÓÃÒÑÖªµÄÊµÌåÃû¡£Ä¬ÈÏÊÇÕıÈ·µÄ
+        /// </param>
+        /// <param name="entitizeQuotAmpAndLtGt">
+        /// If set to true, the [quote], [ampersand], [lower than] and [greather than] characters will be entitized.
+        /// Èç¹ûÉèÖÃÎªtrue£¬ [quote]£¬[ampersand]£¬[Ğ¡ÓÚ]ºÍ[´óÓÚ]×Ö·û½«±»ÊµÌå»¯¡£
+        /// </param>
         /// <returns>The result text</returns>
         public static string Entitize(string text, bool useNames, bool entitizeQuotAmpAndLtGt)
 //        _entityValue.Add("quot", 34);    // quotation mark = APL quote, U+0022 ISOnum 
