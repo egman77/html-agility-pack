@@ -27,6 +27,9 @@ namespace HtmlAgilityPack.Tests
         //    Assert.AreEqual(" AttributeIsThis=\"val\"", result);
         //}
         
+		/// <summary>
+		/// 过滤脚本后的文本内容测试（提取文本，不要脚本）
+		/// </summary>
         [Test]
         public void ScriptingText()
         {
@@ -65,7 +68,7 @@ namespace HtmlAgilityPack.Tests
 
             {
                 HtmlAgilityPack.HtmlDocument htmlDocument = new HtmlAgilityPack.HtmlDocument();
-                htmlDocument.BackwardCompatibility = false;
+                htmlDocument.BackwardCompatibility = false; //向后兼容（去掉回车换行制表符）
                 htmlDocument.LoadHtml(html);
 
                 var content1 = htmlDocument.DocumentNode.SelectSingleNode("//head").InnerText;
@@ -84,6 +87,11 @@ namespace HtmlAgilityPack.Tests
             }
         }
 
+		/// <summary>
+		/// 读没有关闭的标签
+		/// 可返回标签对象，但输出全为空
+		/// </summary>
+		/// <exception cref="Exception"></exception>
         [Test]
         public void ReadNotCloseTag()
         {
@@ -100,7 +108,9 @@ namespace HtmlAgilityPack.Tests
             Assert.IsNotNull(InnerText);
         }
 
-
+		/// <summary>
+		/// 检查文本节点的属性
+		/// </summary>
 	    [Test]
 	    public void checkAttributForTextComment()
 	    {
@@ -127,7 +137,9 @@ namespace HtmlAgilityPack.Tests
 		    Assert.IsNotNull(exception);
 	    }
 
-
+		/// <summary>
+		/// 检查优先插入顺序
+		/// </summary>
 	    [Test]
 	    public void Prepend_CheckOrder()
 	    {
@@ -145,7 +157,7 @@ namespace HtmlAgilityPack.Tests
   <li> Foxtrot </li>
 </ul>
 ");
-
+			//加到开头
 		    destination.PrependChildren(source.ChildNodes); 
 		 
 			Assert.AreEqual(destination.WriteTo()
@@ -160,6 +172,9 @@ namespace HtmlAgilityPack.Tests
 </ul>"); 
 	    }
 
+		/// <summary>
+		/// 可选最大内嵌子节点列表，未强制设置
+		/// </summary>
 	    [Test]
 	    public void OptionMaxNestedChildNodes_NotSet_IsNotEnforced()
 	    {
@@ -172,7 +187,10 @@ namespace HtmlAgilityPack.Tests
 		    Assert.AreEqual(html, doc.Text);
 	    }
 
-	    [Test]
+		/// <summary>
+		/// 可选最大内嵌子节点列表，设置为0，未启作用
+		/// </summary>
+		[Test]
 	    public void OptionMaxNestedChildNodes_SetToZero_IsNotEnforced()
 	    {
 		    var html = "<html><body><div>1<div>2</div>3</div></body></html>";
@@ -185,7 +203,10 @@ namespace HtmlAgilityPack.Tests
 		    Assert.AreEqual(html, doc.Text);
 	    }
 
-	    [Test]
+		/// <summary>
+		/// 可选最大内嵌子节点列表，设置刚好够8个
+		/// </summary>
+		[Test]
 	    public void OptionMaxNestedChildNodes_WithinMax_NoException()
 	    {
 		    var html = "<div id='1'><div id='2'><div id='3'><div id='4'><div id='5'><div id='6'><div id='7'><div id='8'></div></div></div></div></div></div></div></div>";
@@ -195,6 +216,9 @@ namespace HtmlAgilityPack.Tests
 		    doc.LoadHtml(html);
 	    }
 
+		/// <summary>
+		/// 检查配置最大的内嵌子节
+		/// </summary>
 	    [Test]
 	    [ExpectedException(typeof(ApplicationException))]
 	    public void OptionMaxNestedChildNodes_AbotMax()

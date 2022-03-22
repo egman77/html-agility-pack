@@ -521,6 +521,10 @@ namespace HtmlAgilityPack
 	 
 		}
 
+		/// <summary>
+		/// 返回移除换行回车制表符的文本
+		/// </summary>
+		/// <returns></returns>
 		internal string GetCurrentNodeText()
 		{
 			if (_nodetype == HtmlNodeType.Text)

@@ -28,6 +28,9 @@ namespace HtmlAgilityPack
         #region Static Members
 
 #if !FX20 && !FX35
+        /// <summary>
+        /// 使用Web程序特性
+        /// </summary>
         public static bool UseWebUtility { get; set; }
 #endif
 
