@@ -670,7 +670,7 @@ namespace HtmlAgilityPack
             if (sr != null && !_useHtmlEncodingForStream)
             {
                 Text = sr.ReadToEnd();
-                _streamencoding = sr.CurrentEncoding;
+                _streamencoding = sr.CurrentEncoding; //直接使用c# sr的底层检测获得编码
                 return _streamencoding;
             }
 
@@ -681,6 +681,7 @@ namespace HtmlAgilityPack
             _documentnode = CreateNode(HtmlNodeType.Document, 0);
 
             // this is almost a hack, but it allows us not to muck with the original parsing code
+            //几乎是一种黑客行为，但它允许我们不破坏原始的解析代码
             try
             {
                 Parse();
@@ -1404,6 +1405,9 @@ namespace HtmlAgilityPack
             return true;
         }
 
+        /// <summary>
+        /// 转换
+        /// </summary>
         private void Parse()
         {
             if (ParseExecuting != null)

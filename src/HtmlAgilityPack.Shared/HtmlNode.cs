@@ -1309,6 +1309,7 @@ namespace HtmlAgilityPack
 		/// <summary>
 		/// Gets all Descendant nodes in enumerated list
 		/// 获取枚举列表中的所有子代节点
+		/// 子孙后代
 		/// </summary>
 		/// <returns></returns>
 		public IEnumerable<HtmlNode> Descendants(int level)

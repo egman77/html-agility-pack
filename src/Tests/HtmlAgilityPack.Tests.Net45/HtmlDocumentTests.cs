@@ -37,7 +37,9 @@ namespace HtmlAgilityPack.Tests
             return doc;
         }
 
-
+        /// <summary>
+        /// 选择事件属性速度测试？10s运行10万次？
+        /// </summary>
         [Test]
         public void SelectEventAttributesTest()
         {
@@ -50,7 +52,9 @@ namespace HtmlAgilityPack.Tests
 	        }
         }
 
-
+        /// <summary>
+        /// 属性集合bug?
+        /// </summary>
 		[Test]
         public void HtmlAgilityPack_AttributeCollectionBug()
         {
@@ -73,7 +77,7 @@ namespace HtmlAgilityPack.Tests
             Assert.IsNotNull(secondNode.Attributes[firstAttrName], $"'{firstAttrName}' should exist in the collection");
             Assert.AreEqual(firstAttrName, secondNode.Attributes[firstAttrName].Name);
 
-            Assert.IsNull(secondNode.Attributes   [secondAttrName], $"{secondAttrName} should not exist in the collection");
+            Assert.IsNull(secondNode.Attributes[secondAttrName], $"{secondAttrName} should not exist in the collection");
             }
 
             {
@@ -124,6 +128,9 @@ namespace HtmlAgilityPack.Tests
 //            Assert.AreEqual(expected, doc.DocumentNode.OuterHtml); ;
 //		}
 
+        /// <summary>
+        /// 测试script标签能更正流位置
+        /// </summary>
         [Test]
         public void TextInsideScriptTagShouldHaveCorrectStreamPosition()
         {
@@ -165,7 +172,9 @@ namespace HtmlAgilityPack.Tests
                 Assert.AreEqual(8, scriptText.LinePosition);
             }
         }
-
+        /// <summary>
+        /// 创建属性对象测试
+        /// </summary>
         [Test]
         public void CreateAttribute()
         {
@@ -173,7 +182,9 @@ namespace HtmlAgilityPack.Tests
             var a = doc.CreateAttribute("href");
             Assert.AreEqual("href", a.Name);
         }
-
+        /// <summary>
+        /// 创建属性值带编码测试（似乎没有进行url编码？）
+        /// </summary>
         [Test]
         public void CreateAttributeWithEncodedText()
         {
@@ -183,6 +194,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual("http://something.com\"&<>", a.Value);
         }
 
+        /// <summary>
+        /// 创建属性值带文本测试
+        /// </summary>
         [Test]
         public void CreateAttributeWithText()
         {
@@ -192,11 +206,16 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual("http://something.com", a.Value);
         }
 
+        /// <summary>
+        /// 文本区域测试
+        /// </summary>
         [Test]
         public void testTEXTAREA()
         {
             {
                 var doc = new HtmlAgilityPack.HtmlDocument();
+                //script内的标签不能选择
+                //script内的标签不算//
                 doc.LoadHtml(@"<script><div>hello</div></script><TEXTAREA>Text in the <div>hello</div>area</TEXTAREA>");
                 HtmlNodeCollection divs = doc.DocumentNode.SelectNodes("//div");
 
@@ -226,6 +245,9 @@ namespace HtmlAgilityPack.Tests
         //    Assert.AreEqual(a.NodeType, HtmlNodeType.Comment);
         //}
 
+        /// <summary>
+        /// 创建元素测试
+        /// </summary>
         [Test]
         public void CreateElement()
         {
@@ -235,6 +257,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual(a.NodeType, HtmlNodeType.Element);
         }
 
+        /// <summary>
+        /// 测试br
+        /// </summary>
         [Test]
         public void TestBr()
         {
@@ -264,7 +289,9 @@ namespace HtmlAgilityPack.Tests
         //    Assert.AreEqual(HtmlNode.HtmlNodeTypeNameText, a.Name);
         //    Assert.AreEqual(a.NodeType, HtmlNodeType.Text);
         //}
-
+        /// <summary>
+        /// 测试文本节点与文本
+        /// </summary>
         [Test]
         public void CreateTextNodeWithText()
         {
@@ -274,6 +301,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual(a.NodeType, HtmlNodeType.Text);
         }
 
+        /// <summary>
+        /// html编码测试
+        /// </summary>
         [Test]
         public void HtmlEncode()
         {
@@ -281,6 +311,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual("http://something.com&quot;&amp;&lt;&gt;", result);
         }
 
+        /// <summary>
+        /// 解释测试
+        /// </summary>
         [Test]
         public void TestParse()
         {
@@ -304,6 +337,9 @@ namespace HtmlAgilityPack.Tests
         //    HtmlAgilityPack.HtmlDocument.MaxDepthLevel = int.MaxValue;
         //}
 
+        /// <summary>
+        /// 解析-保存-解析测试
+        /// </summary>
         [Test]
         public void TestParseSaveParse()
         {
@@ -329,6 +365,9 @@ namespace HtmlAgilityPack.Tests
             //}
         }
 
+        /// <summary>
+        ///移除兄弟节点的测试
+        /// </summary>
         [Test]
         public void TestRemoveUpdatesPreviousSibling()
         {
@@ -341,6 +380,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreSame(toRemovePrevSibling, toRemoveNextSibling.PreviousSibling);
         }
 
+        /// <summary>
+        /// 替换兄弟节点的测试
+        /// </summary>
         [Test]
         public void TestReplaceUpdatesSiblings()
         {
@@ -355,6 +397,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreSame(toReplaceNextSibling, newNode.NextSibling);
         }
 
+        /// <summary>
+        /// 插入兄弟节点的测试
+        /// </summary>
         [Test]
         public void TestInsertUpdateSiblings()
         {
@@ -369,6 +414,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreSame(toReplaceNextSibling, toReplace.NextSibling);
         }
 
+        /// <summary>
+        /// 节点复制
+        /// </summary>
         [Test]
         public void TestCopyFromNode()
         {
@@ -391,6 +439,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual(attribute1.QuoteType, attribute2.QuoteType);
         }
 
+        /// <summary>
+        /// 测试注释节点
+        /// </summary>
         [Test]
         public void TestCommentNode()
         {
@@ -418,6 +469,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual(comments.Count, 4);
         }
 
+        /// <summary>
+        /// 复制节点测试
+        /// </summary>
         [Test]
         public void TestCloneNode()
         {
@@ -438,7 +492,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual(attribute1.Value, attribute2.Value);
             Assert.AreEqual(attribute1.QuoteType, attribute2.QuoteType);
         }
-
+        /// <summary>
+        /// 空标签测试 （干扰）
+        /// </summary>
         [Test]
         public void TestEmptyTag_Single()
         {
@@ -469,6 +525,9 @@ namespace HtmlAgilityPack.Tests
             }
         }
 
+        /// <summary>
+        /// 添加样式测试
+        /// </summary>
         [Test]
         public void TestAddClass()
         {
@@ -486,6 +545,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual(h1Node.OuterHtml, output);
         }
 
+        /// <summary>
+        /// 移除样式
+        /// </summary>
         [Test]
         public void TestRemoveClass()
         {
@@ -503,6 +565,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual(h1Node.OuterHtml, output);
         }
 
+        /// <summary>
+        /// 替换样式
+        /// </summary>
         [Test]
         public void TestReplaceClass()
         {
@@ -520,6 +585,9 @@ namespace HtmlAgilityPack.Tests
             Assert.AreEqual(h1Node.OuterHtml, output);
         }
 
+        /// <summary>
+        ///  侦测文本编码
+        /// </summary>
         [Test]
 
         public void TestDetectEncoding()
